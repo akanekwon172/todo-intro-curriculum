@@ -1,8 +1,25 @@
 'use strict';
+const fs = require('fs');
+const fileName = './tasks.json';
+
 // { name: タスクの文字列, state: 完了しているかどうかの真偽値 }
 class Todo {
   constructor(items = []) {
     this.items = items;
+
+    try {
+      const data = fs.readFileSync(fileName, 'utf8');
+      this.items = JSON.parse(data);
+    } catch (ignore) {
+      console.log(`${fileName}から復元できませんでした`);
+    }
+  }
+
+  /**
+   * タスクをファイルに保存する
+   */
+  saveTasks() {
+    fs.writeFileSync(fileName, JSON.stringify(this.items), 'utf8');
   }
 
   /**
@@ -11,6 +28,7 @@ class Todo {
    */
   add(task) {
     this.items = [...this.items, { name: task, state: false }];
+    this.saveTasks();
   }
 
   /**
@@ -28,7 +46,7 @@ class Todo {
    * @return {boolean} 完了していないかどうか
    */
   isNotDone(taskAndIsDonePair) {
-    return !isDone(taskAndIsDonePair);
+    return !this.isDone(taskAndIsDonePair);
   }
 
   /**
@@ -36,7 +54,7 @@ class Todo {
    * @return {Array} tasks
    */
   list() {
-    return this.items?.filter(this.isNotDone).map(t => t.name);
+    return this.items?.filter(this.isNotDone.bind(this)).map(t => t.name);
   }
 
   /**
@@ -47,6 +65,7 @@ class Todo {
     const item = this.items?.find(t => t.name === task);
     const index = this.items?.indexOf(item);
     this.items[index] = { ...item, state: true };
+    this.saveTasks();
   }
 
   /**
@@ -63,6 +82,7 @@ class Todo {
    */
   del(task) {
     this.items = this.items?.filter(t => t.name === task);
+    this.saveTasks();
   }
 }
 
