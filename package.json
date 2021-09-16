@@ -1,0 +1,11 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/akanekwon172/todo-intro-curriculum.git",
+  "author": "akanekwom172 <akanekwon_dev@icloud.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test.js"
+  }
+}
