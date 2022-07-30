@@ -23,34 +23,34 @@ class Todo {
   }
 
   /**
-   * TODOを追加する
-   * @param {string} task
+   * タスクを追加する
+   * @param {string} taskName
    */
-  add(task) {
-    this.items = [...this.items, { name: task, state: false }];
+  add(taskName) {
+    this.items = [...this.items, { name: taskName, state: false }];
     this.saveTasks();
   }
 
   /**
    * タスクと完了したかどうかが含まれるオブジェクトを受け取り、完了したかを返す
-   * @param {object} taskAndIsDonePair
+   * @param {object} task
    * @return {boolean} 完了したかどうか
    */
-  isDone(taskAndIsDonePair) {
-    return taskAndIsDonePair.state;
+  isDone(task) {
+    return task.state;
   }
 
   /**
    * タスクと完了したかどうかが含まれるオブジェクトを受け取り、完了していないかを返す
-   * @param {object} taskAndIsDonePair
+   * @param {object} task
    * @return {boolean} 完了していないかどうか
    */
-  isNotDone(taskAndIsDonePair) {
-    return !this.isDone(taskAndIsDonePair);
+  isNotDone(task) {
+    return !this.isDone(task);
   }
 
   /**
-   * TODOの一覧の配列を取得する
+   * タスクの一覧の配列を取得する
    * @return {Array} tasks
    */
   list() {
@@ -58,11 +58,11 @@ class Todo {
   }
 
   /**
-   * TODOを完了状態にする
-   * @param {string} task
+   * タスクを完了状態にする
+   * @param {string} taskName
    */
-  done(task) {
-    const item = this.items?.find(t => t.name === task);
+  done(taskName) {
+    const item = this.items?.find(t => t.name === taskName);
     const index = this.items?.indexOf(item);
     this.items[index] = { ...item, state: true };
     this.saveTasks();
@@ -78,10 +78,10 @@ class Todo {
 
   /**
    * 項目を削除する
-   * @param {string} task
+   * @param {string} taskName
    */
-  del(task) {
-    this.items = this.items?.filter(t => t.name === task);
+  del(taskName) {
+    this.items = this.items?.filter(t => t.name === taskName);
     this.saveTasks();
   }
 }
