@@ -1,31 +1,31 @@
 'use strict';
-// { name: タスクの文字列, state: 完了しているかどうかの真偽値 }
+// { name: タスクの名前, isDone: 完了しているかどうかの真偽値 }
 const tasks = [];
 
 /**
- * TODOを追加する
- * @param {string} task
+ * タスクを追加する
+ * @param {string} taskName
  */
-function add(task) {
-  tasks.push({ name: task, state: false });
+function add(taskName) {
+  tasks.push({ name: taskName, isDone: false });
 }
 
 /**
- * TODOの一覧の配列を取得する
+ * タスクの一覧の配列を取得する
  * @return {Array} tasks
  */
 function list() {
-  return tasks.filter(task => !task.state).map(t => t.name);
+  return tasks.filter(task => !task.isDone).map(task => task.name);
 }
 
 /**
- * TODOを完了状態にする
- * @param {string} task
+ * タスクを完了状態にする
+ * @param {string} taskName
  */
-function done(task) {
-  const indexFound = tasks.findIndex(t => t.name === task);
+function done(taskName) {
+  const indexFound = tasks.findIndex(task => task.name === taskName);
   if (indexFound !== -1) {
-    tasks[indexFound].state = true;
+    tasks[indexFound].isDone = true;
   }
 }
 
@@ -34,15 +34,15 @@ function done(task) {
  * @return {Array} tasks
  */
 function donelist() {
-  return tasks.filter(task => task.state).map(t => t.name);
+  return tasks.filter(task => task.isDone).map(task => task.name);
 }
 
 /**
  * 項目を削除する
- * @param {string} task
+ * @param {string} taskName
  */
-function del(task) {
-  const indexFound = tasks.findIndex(t => t.name === task);
+function del(taskName) {
+  const indexFound = tasks.findIndex(task => task.name === taskName);
   if (indexFound !== -1) {
     tasks.splice(indexFound, 1);
   }
